@@ -294,11 +294,14 @@ nav {
   color: var(--text-primary);
 }
 
+/* Fix for single product page layout */
 .product-container {
   display: flex;
   flex-direction: column;
-  height: calc(100dvh - 64px - 60px); /* Subtract header and bottom nav */
-  overflow: hidden;
+  /* Remove fixed height that was causing content cutoff */
+  height: auto;
+  min-height: calc(100dvh - 64px - 60px);
+  overflow: visible;
 }
 
 /* Product gallery section */
@@ -308,15 +311,23 @@ nav {
   max-height: 350px;
   position: relative;
   background-color: var(--bg-accent);
+  /* Add borders to the image container */
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  margin: var(--spacing-lg);
+  overflow: hidden;
 }
 
 .product-image.single {
   width: 100%;
   height: 100%;
+  /* Change to cover for better mobile display */
   object-fit: contain;
+  /* Add padding to prevent image from touching edges */
+  padding: var(--spacing-md);
 }
 
-/* Product info section - scrollable */
+/* Product info section - fixed position for ratings */
 .product-info {
   flex: 1;
   padding: var(--spacing-lg);
@@ -325,10 +336,49 @@ nav {
   flex-direction: column;
 }
 
-.product-info h1 {
-  font-size: var(--font-2xl);
-  font-weight: 700;
+/* Keep rating section in a fixed position */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
+  position: relative;
+}
+
+/* Media query for web view */
+@media (min-width: 768px) {
+  .product-container {
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: auto;
+    min-height: 600px;
+    padding: var(--spacing-xl);
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+  }
+  
+  .product-image-container.single {
+    width: 45%;
+    height: auto;
+    min-height: 500px;
+    max-height: 80vh;
+    margin: 0;
+  }
+  
+  .product-info {
+    width: 55%;
+    max-height: none;
+    overflow-y: visible;
+    padding: 0;
+  }
+  
+  .action-buttons {
+    position: static;
+    border-top: none;
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-lg);
+  }
 }
 
 .product-description.single {
