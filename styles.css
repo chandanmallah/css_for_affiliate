@@ -305,6 +305,14 @@ nav {
   padding: var(--spacing-lg);
 }
 
+.product-image-container {
+  position: relative;
+  width: 50%;
+  padding-top: 100%; /* Aspect ratio 1:1 */
+  background-color: var(--bg-accent);
+  overflow: hidden;
+}
+
 .product-image-container.single {
   width: 100%;
   height: 40vh;
@@ -724,12 +732,7 @@ footer {
     height: auto;
     padding: 0 var(--spacing-xl);
   }
-  
-  .product-image-container.single {
-    width: 50%;
-    height: calc(100dvh - 120px);
-    max-height: none;
-  }
+
   
   .product-info {
     width: 50%;
