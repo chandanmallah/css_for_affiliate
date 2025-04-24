@@ -347,7 +347,7 @@ nav {
 
 /* Media query for web view */
 @media (min-width: 768px) {
-  .product-container {
+/*   .product-container {
     flex-direction: row;
     max-width: 1200px;
     margin: 0 auto;
@@ -371,6 +371,31 @@ nav {
     max-height: none;
     overflow-y: visible;
     padding: 0;
+  } */
+
+  .product-container {
+  flex-direction: row;
+  max-width: 600px;
+  margin: 0 auto;
+  height: auto;
+  min-height: 600px;
+  padding: var(--spacing-xl);
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+}
+.product-image-container {
+  position: relative;
+  width: 50%;
+  padding-top: 100%; /* Aspect ratio 1:1 */
+  background-color: var(--bg-accent);
+  overflow: hidden;
+}
+  .product-image-container.single {
+    width: 50%; /* Adjust image container width for web */
+    height: auto;
+    min-height: 500px;
+    max-height: 80vh;
+    margin: 0;
   }
   
   .action-buttons {
