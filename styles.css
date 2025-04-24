@@ -206,13 +206,7 @@ nav {
   box-shadow: var(--shadow-md);
 }
 
-.product-image-container {
-  position: relative;
-  width: 100%;
-  padding-top: 100%; /* Aspect ratio 1:1 */
-  background-color: var(--bg-accent);
-  overflow: hidden;
-}
+
 
 .product-image {
   position: absolute;
@@ -429,11 +423,11 @@ nav {
     align-items: flex-start;
   }
 .product-image-container {
-    position: relative;
-    width: 50%;
-    padding-top: 100%;
-    background-color: var(--bg-accent);
-    overflow: hidden;
+  position: relative;
+  width: 50%;
+  padding-top: 100%; /* Aspect ratio 1:1 */
+  background-color: var(--bg-accent);
+  overflow: hidden;
 }
   .product-image-container.single {
     width: 50%; /* Adjust image container width for web */
