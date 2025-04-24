@@ -301,7 +301,7 @@ nav {
 
 .product-image-container {
   position: relative;
-  width: 50%;
+  width: 100%;
   padding-top: 100%; /* Aspect ratio 1:1 */
   background-color: var(--bg-accent);
   overflow: hidden;
@@ -456,11 +456,15 @@ nav {
   }
 
   .action-buttons {
-    position: static; /* Change position to static for web */
-    border-top: none;
-    padding: var(--spacing-lg) 0;
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    background-color: var(--bg-secondary);
+    z-index: 10;
     margin-top: var(--spacing-lg);
-    background-color: transparent;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid var(--border-light);
   }
 
   .spec-grid {
@@ -740,9 +744,15 @@ footer {
   }
   
   .action-buttons {
-    position: static;
-    border-top: none;
-    padding: var(--spacing-lg) 0;
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    background-color: var(--bg-secondary);
+    z-index: 10;
+    margin-top: var(--spacing-lg);
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid var(--border-light);
   }
 }
 
