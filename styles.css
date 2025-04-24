@@ -428,7 +428,13 @@ nav {
     gap: var(--spacing-xl);
     align-items: flex-start;
   }
-
+.product-image-container {
+    position: relative;
+    width: 50%;
+    padding-top: 100%;
+    background-color: var(--bg-accent);
+    overflow: hidden;
+}
   .product-image-container.single {
     width: 50%; /* Adjust image container width for web */
     height: auto;
