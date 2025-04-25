@@ -209,10 +209,12 @@ nav {
 .product-image-container {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* Aspect ratio 1:1 */
   background-color: var(--bg-accent);
   overflow: hidden;
+  padding: 10px;
+  aspect-ratio: 1 / 1; /* Keep square shape on mobile */
 }
+ 
 
 .product-image {
   position: absolute;
@@ -294,14 +296,11 @@ nav {
   color: var(--text-primary);
 }
 
-/* Fix for single product page layout */
 .product-container {
   display: flex;
   flex-direction: column;
-  /* Remove fixed height that was causing content cutoff */
-  height: auto;
-  min-height: calc(100dvh - 64px - 60px);
-  overflow: visible;
+  height: calc(100dvh - 64px - 60px); /* Subtract header and bottom nav */
+  overflow: hidden;
 }
 
 /* Product gallery section */
@@ -311,100 +310,115 @@ nav {
   max-height: 350px;
   position: relative;
   background-color: var(--bg-accent);
-  /* Add borders to the image container */
-  border: 1px solid var(--border-light);
-  border-radius: var(--border-radius-lg);
-  margin: var(--spacing-lg);
-  overflow: hidden;
 }
 
 .product-image.single {
   width: 100%;
   height: 100%;
-  /* Change to cover for better mobile display */
   object-fit: contain;
-  /* Add padding to prevent image from touching edges */
-  padding: var(--spacing-md);
 }
 
-/* Product info section - fixed position for ratings */
+/* Product info section - scrollable */
 .product-info {
-  flex: 1;
+  flex: 1 1 auto; /* still allows growth */
   padding: var(--spacing-lg);
-  overflow-y: auto;
+  overflow-y: visible; /* <-- allow full content display */
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
-/* Keep rating section in a fixed position */
-.product-rating {
+.product-info h1 {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  word-wrap: break-word; /* ensures long titles don’t overflow */
+}
+
+
+.product-description.single {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.5;
+}
+
+/* Specs and details */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.spec-label {
+  font-size: var(--font-xs);
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.spec-value {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-md);
-  position: relative;
 }
 
-/* Media query for web view */
-@media (min-width: 768px) {
-  .product-container {
-    flex-direction: row;
-    max-width: 600px;
-    margin: 0 auto;
-    height: auto;
-    min-height: 600px;
-    padding: var(--spacing-xl);
-    gap: var(--spacing-xl);
-    align-items: flex-start;
-  }
-.product-image-container {
-  position: relative;
-  width: 50%;
-  padding-top: 100%; /* Aspect ratio 1:1 */
-  background-color: var(--bg-accent);
-  overflow: hidden;
+/* Fixed action buttons at bottom */
+.action-buttons {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  z-index: 10;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-  .product-image-container.single {
-    width: 50%; /* Adjust image container width for web */
-    height: auto;
-    min-height: 500px;
-    max-height: 80vh;
-    margin: 0;
-  }
 
-  .product-info {
-    width: 50%; /* Adjust product info width for web */
-    padding: 0;
-    overflow-y: visible;
-    height: auto;
-    max-height: none;
-    display: flex;
-    flex-direction: column;
-  }
 
-  .product-title.single {
-    font-size: var(--font-3xl);
-  }
+.primary-button, .secondary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  font-size: var(--font-md);
+  flex: 1;
+  transition: all var(--transition-fast);
+}
 
-  .product-description.single {
-    max-width: 90%;
-  }
+.primary-button {
+  background-color: var(--accent-primary);
+  color: white;
+}
 
-  .action-buttons {
-    display: flex;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md) 0;
-    background-color: var(--bg-secondary);
-    z-index: 10;
-    margin-top: var(--spacing-lg);
-    position: sticky;
-    bottom: 0;
-    border-top: 1px solid var(--border-light);
-  }
+.primary-button:hover {
+  background-color: var(--accent-secondary);
+}
 
-  .spec-grid {
-    grid-template-columns: repeat(3, 1fr); /* Change to 3 columns for specs on web */
-  }
+.secondary-button {
+  background-color: var(--accent-tertiary);
+  color: var(--text-primary);
+}
+
+.secondary-button:hover {
+  background-color: #e5e5ea;
 }
 
 /* Size selector for product page */
@@ -450,6 +464,13 @@ nav {
 }
 
 /* Product rating display */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
 .rating-stars {
   color: #FFD700;
   display: flex;
@@ -464,7 +485,7 @@ nav {
 footer {
   background-color: var(--bg-secondary);
   padding: var(--spacing-lg);
-  margin-top: auto;
+  margin-top: 10vh;
   border-top: 1px solid var(--border-light);
 }
 
@@ -481,36 +502,58 @@ footer {
 .footer-bottom p {
   margin: var(--spacing-xs) 0;
 }
-
 @media (min-width: 768px) {
+  footer {
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    margin-top: 10vh;
+    border-top: 1px solid var(--border-light);
+  }
+
   .footer-content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl) var(--spacing-2xl);
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto;              /* Center the content */
     padding-bottom: var(--spacing-xl);
   }
-  
-  .footer-column h3 {
-    font-size: var(--font-md);
-    margin-bottom: var(--spacing-md);
-    font-weight: 600;
+ 
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
-  
+
+  .footer-column h3 {
+    font-size: var(--font-lg);
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
   .footer-links {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  
+
   .footer-links a {
     color: var(--text-secondary);
     font-size: var(--font-sm);
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
-  
+
   .footer-links a:hover {
     color: var(--text-primary);
+  }
+
+  .footer-bottom {
+    margin-top: var(--spacing-lg);   /* Add margin above the copyright */
+    margin-bottom: var(--spacing-lg); /* Add margin below for spacing from bottom */
+    text-align: center;
+    color: var(--text-light);
+    font-size: var(--font-xs);
   }
 }
 
@@ -656,6 +699,9 @@ footer {
   text-align: center;
 }
 
+
+/* Media query for web view */
+
 /* === Media Queries === */
 @media (min-width: 768px) {
   .product-grid {
@@ -664,6 +710,15 @@ footer {
     padding: 0 var(--spacing-xl);
   }
   
+  .product-image-container {
+    position: relative;
+    width: 50%;
+    background-color: var(--bg-accent);
+    overflow: hidden;
+    padding: 10px; /* Adds spacing inside the container */
+    aspect-ratio: 1 / 1; /* Modern way to set square aspect ratio */
+  }
+   
   .product-container {
     flex-direction: row;
     max-width: 1200px;
@@ -671,7 +726,20 @@ footer {
     height: auto;
     padding: 0 var(--spacing-xl);
   }
+  
+  .product-image-container.single {
+    width: 50%;
+    height: calc(100dvh - 120px);
+    max-height: none;
+  }
 
+  .product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* or cover, depending on your design */
+    padding: 5px; /* Optional inner gap from image edge */
+  }
+  
   
   .product-info {
     width: 50%;
@@ -679,15 +747,9 @@ footer {
   }
   
   .action-buttons {
-    display: flex;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md) 0;
-    background-color: var(--bg-secondary);
-    z-index: 10;
-    margin-top: var(--spacing-lg);
-    position: sticky;
-    bottom: 0;
-    border-top: 1px solid var(--border-light);
+    position: static;
+    border-top: none;
+    padding: var(--spacing-lg) 0;
   }
 }
 
@@ -696,17 +758,4 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
   }
-}
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  margin: var(--spacing-lg);
-  color: var(--text-secondary);
-  font-size: var(--font-sm);
-  font-weight: 500;
-}
-
-.back-link:hover {
-  color: var(--text-primary);
 }
